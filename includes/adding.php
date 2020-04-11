@@ -17,22 +17,28 @@
 
     if(isset($_POST["form_id"]) and $_POST["form_id"] == 2) {
 
-        $serialnumber = mysqli_escape_string($link, $_POST["SerialNumber"]);
+        $serialnumber = mysqli_escape_string($link, $_POST["serialnumber"]);
         $query = "SELECT * FROM carriage WHERE serialnumber = '$serialnumber'";
 
         $result = mysqli_query($link, $query);
-        if (mysqli_num_rows($result) == 0){
+        if (mysqli_num_rows($result) != 0){
             header("Location: http://mgtrains.com/message.php?id=1");
             exit;
         }
 
         $countplace = mysqli_escape_string($link, $_POST["countplace"]);
         $customRadio =  mysqli_escape_string($link, $_POST["customRadio"]);
+        $class = mysqli_escape_string($link, $_POST["customRadio"]);
         
-        $query = "INSERT INTO carriage(SerialNumber, CountPlace, Weight) VALUES ('$serialnumber' , $countplace, $customRadio)";
+        $query = "INSERT INTO carriage(SerialNumber, CountPlace, Weight, Class) VALUES ('$serialnumber' , $countplace, $customRadio, $class)";
+        $result = mysqli_query($link, $query);
+        if (!$result) {
+            header("Location: http://mgtrains.com/message.php?id=6");
+            exit;
+        }
         
-        $result = mysqli_query("");
-
+        header("Location: http://mgtrains.com/message.php?id=5");
+        exit;
     }
 
 

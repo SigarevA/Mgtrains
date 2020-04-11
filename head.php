@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="mystyle/bootstrap.css" rel="stylesheet" >
     <link href="mystyle/style.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"/>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <title>Index</title>
@@ -47,15 +47,29 @@
                         </li>
                         <!-- Формирование -->
                         <li class="nav-item">
-                            <div class="nav-item dropdown">
+                        <div class="nav-item dropdown">
                             <button class="btn dropdown-toggle"
                                     type="button" id="dropdownMenu1" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
                                 Сформировать
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <a class="dropdown-item" href="formation.php?what=branch">Состав</a>
-                                <a class="dropdown-item" href='#!'>Ветку</a>
+                                <a class="dropdown-item" href="formation.php?what=train">Состав</a>
+                                <a class="dropdown-item" href='formation.php?what=branch'>Ветку</a>
+                            </div>
+                        </div>
+                        </li>
+                        <li class="nav-item">
+                        <div class="nav-item dropdown">
+                            <button class="btn dropdown-toggle"
+                                    type="button" id="dropdownMenu1" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                Редактировать
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <a class="dropdown-item" href="list_branch.php">Расписание</a>
+                                <a class="dropdown-item" href="refactor_train.php">Список Поездов</a>
+                                <a class="dropdown-item" href="list_route.php">Управление</a>
                             </div>
                         </div>
                         </li>

@@ -4,7 +4,6 @@
         header("Location: http://mgtrains.com/");
     }
 ?>
-
 <!-- Форма добавления вагона -->
 <?php
     if( isset($_GET["add"]) )
@@ -41,24 +40,46 @@
                         document.getElementById("formMenuStation").addEventListener("submit" , check_fillstation);
 
                         function check_fillstation(e) {
-                            if( document.getElementById("InputNameStation").value === '') {
+                            if( document.getElementById("InputNameStation").value.trim() === '') {
                                 e.preventDefault();
                                 alert("Заполните поле \"Название станции\"");
                                 document.getElementById("InputNameStation").focus();
                                 return false;
                             }
-                            if( document.getElementById("NameCountry").value === '') {
+                            if( document.getElementById("NameCountry").value.trim() === '') {
                                 e.preventDefault();
                                 alert("Заполните поле \"Страна\"");
                                 document.getElementById("NameCountry").focus();
                                 return false;
                             }
-                            if( document.getElementById("NameCity").value === '') {
+                            if( document.getElementById("NameCity").value.trim() === '') {
                                 e.preventDefault();
                                 alert("Заполните поле \"Город\"");
                                 document.getElementById("NameCity").focus();
                                 return false;
                             }
+                            e.preventDefault();
+                            let name = document.getElementById("InputNameStation").value.trim();
+                            let city = document.getElementById("NameCity").value.trim();
+                            let country = document.getElementById("NameCountry").value.trim();
+                            if ( checkName(name, city, country) ) {
+                                e.preventDefault();
+                                alert("Станция с такими параметрами уже существует!");
+                                return false;
+                            }
+                            e.preventDefault();
+                        }
+
+
+                        function checkName(nameStation, cityStation, countryStation) {
+                            var xhr = new XMLHttpRequest();
+                            let url = 'includes/check_name_station.php?name=' + nameStation + "&city=" + cityStation + "&country=" + countryStation;
+                            console.log(url);
+                            xhr.open('GET', url , false);
+                            xhr.send();
+                            console.log(xhr.responseText);
+                            let response = JSON.parse(xhr.responseText);
+                            return response[0]["status"];
                         }
                     </script>
             <?php
@@ -85,11 +106,11 @@
                         <div class="form-group">
                             <label for="formGroupExampleInput">Класс :</label>
                             <div class="custom-control custom-radio">
-                                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="1">
                                 <label class="custom-control-label" for="customRadio1">1</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" value="2">
                                 <label class="custom-control-label" for="customRadio2">2</label>
                             </div>
                             <div class="custom-control custom-radio">
@@ -108,13 +129,13 @@
                         document.getElementById("formMenuCarriage").addEventListener("submit" , check_fillCarriage);
 
                         function check_fillCarriage(e) {
-                            if( document.getElementById("SerialNumber").value === '') {
+                            if( document.getElementById("SerialNumber").value.trim() === '') {
                                 e.preventDefault();
                                 alert("Заполните поле \"Серийный номер\"");
                                 document.getElementById("SerialNumber").focus();
                                 return false;
                             }
-                            if( document.getElementById("CountPlace").value === '') {
+                            if( document.getElementById("CountPlace").value.trim() === '') {
                                 e.preventDefault();
                                 alert("Заполните поле \"Количество мест\"");
                                 document.getElementById("CountPlace").focus();
@@ -124,6 +145,12 @@
                                 e.preventDefault();
                                 alert("Заполните поле \"Вес\"");
                                 document.getElementById("Weight").focus();
+                                return false;
+                            }
+                            var regInt = /^(\d)*$/;
+                            if(document.getElementById("CountPlace").value.search(regInt) == -1 ) {
+                                e.preventDefault();
+                                alert("Поле \'Количество мест\' принимает только целочисленное число");
                                 return false;
                             }
                             var reg = /^(\d)*[\.(\d)+]?$/;
@@ -206,4 +233,3 @@
 <?php
     }
 ?>
-
